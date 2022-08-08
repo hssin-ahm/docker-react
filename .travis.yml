@@ -1,0 +1,20 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build -t hssin/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true hssin/docker-react npm run -- --coverage
+# deploy:
+#   provider: elasticbeanstalk
+#   region: 'us-east-1'
+#   app: 'docker'
+#   env: 'docker-env'
+#   bucket_name: 'elasticbeanstalk-us-east-1-923445559289'
+#   bucket_path: 'docker'
+#   on:
+#     branch: master
